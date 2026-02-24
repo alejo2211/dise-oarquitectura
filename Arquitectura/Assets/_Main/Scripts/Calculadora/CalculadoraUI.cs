@@ -52,6 +52,11 @@ public class CalculadoraUI : MonoBehaviour
                 _resultado.text = (a * b).ToString();
                 break;
             case Operador.Division:
+                if (b == 0)
+                {
+                    _resultado.text = "no se puede dividir por 0 ";
+                }
+                
                     _resultado.text = (a / b).ToString();
                 break;
             default:
@@ -60,5 +65,11 @@ public class CalculadoraUI : MonoBehaviour
                 break;
             
         }
+    }
+    public void Limpiar()
+    {
+        _inputA.text = "";
+        _inputB.text = "";
+        _resultado.text = "";
     }
 }
