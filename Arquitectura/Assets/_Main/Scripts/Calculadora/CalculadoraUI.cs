@@ -4,25 +4,59 @@ using UnityEngine.Rendering;
 
 public class CalculadoraUI : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField inputA;
-    [SerializeField] private TMP_InputField inputB;
-
-    public float ConvertirStringAFloat(string input)
+    public enum Operador
     {
-         return float.Parse(input);
+        Suma,
+        Resta,
+        Multiplicacion,
+        Division 
     }
-    public string Calcular(string operador,float inputA , float inputB)
+
+
+    [SerializeField] private TMP_InputField _inputA;
+    [SerializeField] private TMP_InputField _inputB;
+    [SerializeField] private TMP_Text _resultado;
+    private Operador _operador;
+    
+    public void SeleccionarOperador(Operador operador)
     {
-        switch (operador)
+        _operador = operador;
+    }
+    public void OperadorSuma() => _operador = Operador.Suma;
+    public void OperadorResta()
+    {
+        _operador = Operador.Resta;
+    }
+    public void OperadorMultiplicacion()
+    {
+        _operador = Operador.Multiplicacion;
+    }
+    public void OperadorDividir()
+    {
+        _operador = Operador.Division;
+    }
+    public void Calcular()
+    {
+        float.TryParse(_inputA.text, out float a); 
+        float.TryParse(_inputB.text, out float b);
+        
+        switch (_operador)
         {
-            case "+":
-                return (inputA + inputB).ToString();
+            case Operador.Suma:
+                _resultado.text= (a + b).ToString();
                     break;
-            case "-":
-                return (inputA - inputB).ToString();
+            case Operador.Resta:
+                _resultado.text = (a - b).ToString();
                 break;
-            case "*":
-                return (inputA * inputB).ToString();
+            case Operador.Multiplicacion:
+                _resultado.text = (a * b).ToString();
+                break;
+            case Operador.Division:
+                    _resultado.text = (a / b).ToString();
+                break;
+            default:
+                _resultado.text=("Oprime un operador valido");
+                
                 break;
             
         }
